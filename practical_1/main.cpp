@@ -84,7 +84,9 @@ void Update(RenderWindow& window) {
 	// check ball collision
 	const float bx = ball.getPosition().x;
 	const float by = ball.getPosition().y;
-	paddles[1].setPosition(10 + gameWidth - paddleSize.x, by);
+
+	
+	
 	if (by > gameHeight) { //bottom wall
 	  // bottom wall
 		ballVelocity.x *= 1.1f;
