@@ -13,7 +13,7 @@ const int gameWidth = 800;
 const int gameHeight = 600;
 
 void Load() {
-    if (!spritesheet.loadFromFile("D:/year1_game/res/invaders_sheet.png")) {
+    if (!spritesheet.loadFromFile("res/img/invaders_sheet.png")) {
         cerr << "Failed to load spritesheet!" << std::endl;
     }
     invader.setTexture(spritesheet);
