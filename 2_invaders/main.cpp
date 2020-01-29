@@ -17,7 +17,12 @@ std::vector<Ship*> ships;
 Ship* playerShip;
 
 
-
+void Reset() {
+	// reset invaders movement
+	Invader::direction = true;
+	Invader::speed = 30.f;
+	Player::speed = 160.f;
+}
 
 
 void Load() {
@@ -41,8 +46,8 @@ void Load() {
 	auto player = new Player();
 	playerShip = player;
 	ships.push_back(player);
-    //invader.setTexture(spritesheet);
-    //invader.setTextureRect(sf::IntRect(0, 0, 32, 32));
+    
+	Reset();
 	
 
 }
@@ -80,11 +85,12 @@ void Render(RenderWindow& window) {
 
 
 int main() {
-	RenderWindow window(VideoMode(gameWidth, gameHeight), "Invaders");
+	RenderWindow window(VideoMode(gameWidth, gameHeight), "SPACE INVADERS");
 	Load();
 	
 	while (window.isOpen()) {
 		window.clear();
+		Update(window);
 		Render(window);
 		window.display();
 	}
