@@ -1,6 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
+
+
+
+
 using namespace sf;
 using namespace std;
 
@@ -8,9 +12,7 @@ using namespace std;
 sf::Texture spritesheet;
 sf::Sprite invader;
 
-//window size
-const int gameWidth = 800;
-const int gameHeight = 600;
+
 
 void Load() {
     if (!spritesheet.loadFromFile("res/invaders_sheet.png")) {
