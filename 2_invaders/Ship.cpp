@@ -16,12 +16,12 @@ Ship::Ship(IntRect ir) : Sprite() {
 };
 
 void Ship::Update(const float& dt) {
-    // "Destroy" ship by making it transparent
+    
     if (_exploded) {
         _explosiontime -= dt;
     }
     if (_explosiontime <= 0.f) {
-        setColor(Color(0, 0, 0, 0));
+        setColor(Color(0, 0, 0, 0));	//make the ship transparent
     }
 }
 
