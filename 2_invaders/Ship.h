@@ -15,3 +15,21 @@ public:
     //Update, virtual so can be overridden, but not pure virtual
     virtual void Update(const float& dt);
 };
+
+class Invader : public Ship {
+public:
+    Invader(sf::IntRect ir, sf::Vector2f pos);
+    Invader();
+    void Update(const float& dt) override;
+    static bool direction;
+    static float speed;
+    void Explode();
+};
+
+class Player : public Ship {
+public:
+    Player();
+    void Update(const float& dt) override;
+    static float speed;
+    void Explode();
+};
