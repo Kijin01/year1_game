@@ -1,6 +1,7 @@
 //ship.cpp
 #include "ship.h"
 #include "game.h"
+#include "bullet.h"
 
 using namespace sf;
 using namespace std;
@@ -8,12 +9,29 @@ using namespace std;
 Ship::Ship() {};
 
 Ship::Ship(IntRect ir) : Sprite() {
+    _exploded = false; //need to do this intially, since we dont want all of our ships be exploded from the start
     _sprite = ir;
     setTexture(spritesheet);
     setTextureRect(_sprite);
 };
 
-void Ship::Update(const float& dt) {}
+void Ship::Update(const float& dt) {
+    // "Destroy" ship by making it transparent
+    if (_exploded) {
+        _explosiontime -= dt;
+    }
+    if (_explosiontime <= 0.f) {
+        setColor(Color(0, 0, 0, 0));
+    }
+}
+
+void Ship::Explode() {
+    _exploded = true;
+}
+
+bool Ship::is_exploded() const {
+    return _exploded;
+}
 
 //Define the ship deconstructor. 
 //Although we set this to pure virtual, we still have to define it.
@@ -40,6 +58,20 @@ void Invader::Update(const float& dt) {
             ships[i]->move(0, 24);
         }
     }
+    // Fire bullets
+    // (each invader is not able to fire more than once in 4 seconds)
+    static float firetime = 0.f;
+    firetime -= dt;
+    if (firetime <= 0 && rand() % 100 == 0 && !_exploded) {
+        Bullet::Fire(getPosition(), true);
+        firetime = 4.f + (rand() % 60);
+    }
+}
+
+
+void Invader::Explode() {
+    Ship::Explode();
+    setTextureRect(IntRect(128, 32, 32, 32));
 }
 
 //Speed and direction
@@ -51,6 +83,14 @@ float Invader::speed;
 Player::Player() : Ship(IntRect(160, 32, 32, 32)) {
     setOrigin(16, 16);
     setPosition({ gameWidth * .5f, gameHeight - 32.f });
+}
+
+
+int player = invaders_rows * invaders_columns;  //because it will always be the last ship in the vector
+
+void Player::Explode() {
+    Ship::Explode();
+    setTextureRect(IntRect(0, 32, 32, 32));
 }
 
 void Player::Update(const float& dt) {
@@ -65,8 +105,20 @@ void Player::Update(const float& dt) {
         if (getPosition().x + 16 < gameWidth)
             direction++;
     }
-    ships[invaders_rows * invaders_columns]->move(direction * speed * dt, 0);
+    ships[player]->move(direction * speed * dt, 0);
+
+    // Bullets
+    
+    static float firetime = 0.f;
+    firetime -= dt;
+    if (firetime <= 0 && Keyboard::isKeyPressed(Keyboard::F)) {
+        Bullet::Fire(getPosition(), false);
+        firetime = 0.7f;
+    }
+    
 }
+
+
 
 //Speed
 float Player::speed;

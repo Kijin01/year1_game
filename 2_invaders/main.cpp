@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Ship.h"
 #include "game.h"
+#include "bullet.h"
 
 
 
@@ -74,6 +75,15 @@ void Update(RenderWindow& window) {
 	for (auto& s : ships) {
 		s->Update(dt);
 	}
+
+	//bullets
+
+	Bullet::Update(dt);
+
+	if (playerShip->is_exploded()) {
+		window.close();
+	}
+
 }
 
 void Render(RenderWindow& window) {
@@ -81,6 +91,8 @@ void Render(RenderWindow& window) {
 	for (const auto s : ships) {
 		window.draw(*s);
 	}
+
+	Bullet::Render(window);
 }
 
 
