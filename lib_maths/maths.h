@@ -18,8 +18,8 @@ namespace sf {
     Vector2<T> vector;
     double l = length(v);
     if (l != 0) {
-      vector.x = ...
-      vector.y = ...
+        vector.x = v.x / length(v.x);
+        vector.y = v.y / length(v.y);
     }
     return vector;
   }
@@ -28,10 +28,12 @@ namespace sf {
   Vector2<T> Vcast(const Vector2<U> &v) {
     return Vector2<T>(static_cast<T>(v.x), static_cast<T>(v.y));
   };
+
   // Degreess to radians conversion
   static double deg2rad(double degrees) {
-    return ...
+      return degrees * 3.14159265359 / 180.0;
   }
+
   //Rotate a sf::vector by an angle(degrees)
   template <typename T>
   Vector2<T> rotate(const Vector2<T> &v, const double degrees) {
