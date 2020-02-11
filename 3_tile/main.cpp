@@ -2,9 +2,11 @@
 #include <iostream>
 #include "entity.h"
 #include "player.h"
+#include "levelsystem.h"
 
 using namespace sf;
 using namespace std;
+
 
 
 float gameWidth = 800.0f;
@@ -17,6 +19,20 @@ void Reset() {};
 void Load() {
 	//Load the player
 	player = new Player();
+
+	player->setPosition({ 146.978, 133.754 });
+
+	//Vector2f start = ls::getTilePosition()
+
+	ls::loadLevelFile("res/maze_2.txt");
+
+	// Print the level to the console
+	for (size_t y = 0; y < ls::getHeight(); ++y) {
+		for (size_t x = 0; x < ls::getWidth(); ++x) {
+			cout << ls::getTile({ x, y });
+		}
+		cout << endl;
+	}
 }
 
 void Update(RenderWindow& window) {
@@ -37,10 +53,16 @@ void Update(RenderWindow& window) {
 		window.close();
 	}
 
+	if (Keyboard::isKeyPressed(Keyboard::P)) {
+		cout << player->getPosition();
+	}
+
+
 	player->Update(dt);
 }
 
 void Render(RenderWindow& window) {
+	ls::Render(window);
 	player->Render(window);
 }
 

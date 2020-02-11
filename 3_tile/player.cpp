@@ -1,22 +1,26 @@
 //player.cpp
 #include "player.h"
+#include "levelsystem.h"
 using namespace sf;
 using namespace std;
+
 
 void Player::Update(double dt) {
   //Move in four directions based on keys
     sf::Vector2f directionXY = { 0.0f, 0.0f };
 
-    if (Keyboard::isKeyPressed(Keyboard::Left)) {
+    
+
+    if (Keyboard::isKeyPressed(Keyboard::Left) && ls::validmove(this->getPosition() - Vector2f{1.0f, 0.0f})) {
         directionXY.x--;
     }
-    if (Keyboard::isKeyPressed(Keyboard::Right)) {
+    if (Keyboard::isKeyPressed(Keyboard::Right) && ls::validmove(this->getPosition() + Vector2f{ 1.0f, 0.0f })) {
         directionXY.x++;
     }
-    if (Keyboard::isKeyPressed(Keyboard::Down)) {
+    if (Keyboard::isKeyPressed(Keyboard::Down) && ls::validmove(this->getPosition() + Vector2f{ 0.0f, 1.0f })) {
         directionXY.y++;
     }
-    if (Keyboard::isKeyPressed(Keyboard::Up)) {
+    if (Keyboard::isKeyPressed(Keyboard::Up) && ls::validmove(this->getPosition() - Vector2f{ 0.0f, 1.0f })) {
         directionXY.y--;
     }
 
@@ -33,3 +37,4 @@ Player::Player()
 void Player::Render(sf::RenderWindow &window) const {
   window.draw(*_shape);
 }
+

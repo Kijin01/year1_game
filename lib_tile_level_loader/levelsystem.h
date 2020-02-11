@@ -25,6 +25,7 @@ public:
  static TILE getTileAt(sf::Vector2f);
  static size_t getHeight();
  static size_t getWidth();
+ static bool validmove(sf::Vector2f);
  
 protected:
  static std::unique_ptr<TILE[]> _tiles; //Internal array of tiles

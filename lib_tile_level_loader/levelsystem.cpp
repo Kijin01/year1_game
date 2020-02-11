@@ -9,7 +9,7 @@ using namespace sf;
 std::unique_ptr<LevelSystem::TILE[]> LevelSystem::_tiles;
 size_t LevelSystem::_width;
 size_t LevelSystem::_height;
-Vector2f LevelSystem::_offset(0.0f, 30.0f);
+Vector2f LevelSystem::_offset(0.0f, 0.0f);
 
 float LevelSystem::_tileSize(100.f);
 vector<std::unique_ptr<sf::RectangleShape>> LevelSystem::_sprites;
@@ -71,12 +71,17 @@ void LevelSystem::loadLevelFile(const std::string& path, float tileSize) {
       if (w == 0) { // if we haven't written width yet
         w = i;      // set width
       }
+
       h++; // increment height
       break;
     default:
       cout << c << endl; // Don't know what this tile type is
     }
   }
+
+  h++; //have to add this, because otherwise we dont count the last line \n, and we would always get the exception thrown at us 
+       //since the temp_tiles.size() would never equal w*h
+
   if (temp_tiles.size() != (w * h)) {
     throw string("Can't parse level file") + path;
   }
@@ -123,6 +128,18 @@ LevelSystem::TILE LevelSystem::getTile(Vector2ul p) {
   }
   return _tiles[(p.y * _width) + p.x];
 }
+
+LevelSystem::TILE LevelSystem::getTileAt(Vector2f v) {
+    auto a = v - _offset;
+    if (a.x < 0 || a.y < 0) {
+        throw string("Tile out of range.");
+    }
+    return getTile(Vector2ul((v - _offset) / (_tileSize)));
+}
+bool LevelSystem::validmove(Vector2f pos) {
+    return (ls::getTileAt(pos) != ls::WALL);
+}
+
 
 void LevelSystem::Render(RenderWindow &window) {
   for (size_t i = 0; i < _width * _height; ++i) {
