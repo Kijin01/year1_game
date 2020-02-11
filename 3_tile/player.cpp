@@ -3,11 +3,25 @@
 using namespace sf;
 using namespace std;
 
-void Player::update(double dt) {
+void Player::Update(double dt) {
   //Move in four directions based on keys
-  ...
-  
-  Entity::update(dt);
+    sf::Vector2f directionXY = { 0.0f, 0.0f };
+
+    if (Keyboard::isKeyPressed(Keyboard::Left)) {
+        directionXY.x--;
+    }
+    if (Keyboard::isKeyPressed(Keyboard::Right)) {
+        directionXY.x++;
+    }
+    if (Keyboard::isKeyPressed(Keyboard::Down)) {
+        directionXY.y++;
+    }
+    if (Keyboard::isKeyPressed(Keyboard::Up)) {
+        directionXY.y--;
+    }
+
+    move((float)dt * directionXY * _speed);
+    Entity::Update(dt);
 }
 
 Player::Player()
@@ -16,6 +30,6 @@ Player::Player()
   _shape->setOrigin(Vector2f(25.f, 25.f));
 }
 
-void Player::render(sf::RenderWindow &window) const {
+void Player::Render(sf::RenderWindow &window) const {
   window.draw(*_shape);
 }
