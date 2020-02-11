@@ -22,8 +22,6 @@ void Load() {
 
 	player->setPosition({ 146.978, 133.754 });
 
-	//Vector2f start = ls::getTilePosition()
-
 	ls::loadLevelFile("res/maze_2.txt");
 
 	// Print the level to the console
