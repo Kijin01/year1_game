@@ -1,6 +1,7 @@
 //levelsystem.cpp
-#include "LevelSystem.h"
+#include "levelsystem.h"
 #include <fstream>
+#include <iostream>
 
 using namespace std;
 using namespace sf;
@@ -24,7 +25,7 @@ sf::Color LevelSystem::getColor(LevelSystem::TILE t) {
 }
 
 void LevelSystem::setColor(LevelSystem::TILE t, sf::Color c) {
-  ...
+    LevelSystem::_colours[t] = c;
 }
 
 void LevelSystem::loadLevelFile(const std::string& path, float tileSize) {
@@ -86,6 +87,18 @@ void LevelSystem::loadLevelFile(const std::string& path, float tileSize) {
   cout << "Level " << path << " Loaded. " << w << "x" << h << std::endl;
   buildSprites();
 }
+
+size_t LevelSystem::getHeight() {
+    return _height;
+}
+
+size_t LevelSystem::getWidth() {
+    return _width;
+}
+
+
+
+
 
 void LevelSystem::buildSprites() {
   _sprites.clear();
