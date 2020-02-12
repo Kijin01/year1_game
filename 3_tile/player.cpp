@@ -24,6 +24,8 @@ void Player::Update(double dt) {
         directionXY.y--;
     }
 
+	
+
     move((float)dt * directionXY * _speed);
     Entity::Update(dt);
 }

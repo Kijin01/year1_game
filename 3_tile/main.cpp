@@ -13,14 +13,19 @@ float gameWidth = 800.0f;
 float gameHeight = 600.0f;
 
 Player* player;
+Clock timer;
 
-void Reset() {};
+void Reset() {
+	player->setPosition({ 146.978, 133.754 });
+	
+};
 
 void Load() {
 	//Load the player
 	player = new Player();
 
-	player->setPosition({ 146.978, 133.754 });
+	Reset();
+
 
 	ls::loadLevelFile("res/maze_2.txt");
 
@@ -51,8 +56,12 @@ void Update(RenderWindow& window) {
 		window.close();
 	}
 
-	if (Keyboard::isKeyPressed(Keyboard::P)) {
+	/*if (Keyboard::isKeyPressed(Keyboard::P)) {
 		cout << player->getPosition();
+	}*/
+
+	if (ls::endTile(player->getPosition())) {
+		Reset();
 	}
 
 

@@ -143,6 +143,10 @@ bool LevelSystem::validmove(Vector2f pos) {
     return (ls::getTileAt(pos) != ls::WALL);
 }
 
+bool LevelSystem::endTile(Vector2f pos) {
+	return (ls::getTileAt(pos) == ls::END);
+}
+
 
 void LevelSystem::Render(RenderWindow &window) {
   for (size_t i = 0; i < _width * _height; ++i) {
