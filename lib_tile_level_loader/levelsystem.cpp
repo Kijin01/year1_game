@@ -140,6 +140,10 @@ LevelSystem::TILE LevelSystem::getTile(Vector2ul p) {
   if (p.x > _width || p.y > _height) {
     throw string("Tile out of range: ") + to_string(p.x) + "," + to_string(p.y) + ")";
   }
+  else if (p.x < 0 || p.y < 0)
+  {
+	  cout << "Invalid, negative tile!" << endl;
+  }
   return _tiles[(p.y * _width) + p.x];
 }
 

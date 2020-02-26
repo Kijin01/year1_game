@@ -36,6 +36,12 @@ void GameScene::update(double dt) {
 	if (Keyboard::isKeyPressed(Keyboard::Tab)) {
 		activeScene = menuScene;
 	}
+
+	for (auto& g : ghosts) {
+		if (length(g->getPosition() - player->getPosition()) < 30.0f) {
+			respawn();
+		}
+	}
 	 
 	Scene::update(dt);
 }
@@ -51,19 +57,23 @@ void GameScene::respawn() {
     }
 }
 
+
+
 void GameScene::load() {
 
     ls::loadLevelFile("res/pacman.txt", 25.f);
 
     {
         auto pl = make_shared<Entity>();
-        pl->addComponent<PlayerMovementComponent>();
         auto s = pl->addComponent<ShapeComponent>();
-        s->setShape<sf::CircleShape>(12.f);
+        s->setShape<sf::CircleShape>(12.5f);
         s->getShape().setFillColor(Color::Yellow);
-        s->getShape().setOrigin(Vector2f(12.f, 12.f));
+        s->getShape().setOrigin(Vector2f(12.5f, 12.5f));
+
+		pl->addComponent<PlayerMovementComponent>();
 
         _ents.list.push_back(pl);
+		player = pl;
     }
 
     const sf::Color ghost_cols[]{ {208, 62, 25},    // red Blinky
@@ -74,9 +84,10 @@ void GameScene::load() {
     for (int i = 0; i < GHOSTS_COUNT; ++i) {
         auto ghost = make_shared<Entity>();
         auto s = ghost->addComponent<ShapeComponent>();
-        s->setShape<sf::CircleShape>(12.f);
+        s->setShape<sf::CircleShape>(12.5f);
         s->getShape().setFillColor(ghost_cols[i % 4]);
-        s->getShape().setOrigin(Vector2f(12.f, 12.f));
+        s->getShape().setOrigin(Vector2f(12.5f, 12.5f));
+
         ghost->addComponent<EnemyAIComponent>();
 
         _ents.list.push_back(ghost);

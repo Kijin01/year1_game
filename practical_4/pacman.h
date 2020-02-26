@@ -5,7 +5,7 @@
 #include "scene.h"
 
 constexpr uint16_t gameWidth = 800;
-constexpr uint16_t gameHeight = 600;
+constexpr uint16_t gameHeight = 800;
 
 extern std::shared_ptr<Scene> gameScene;
 extern std::shared_ptr<Scene> menuScene;

@@ -39,7 +39,7 @@ void EnemyAIComponent::update(double dt) {
            //Don't reverse
            newdir == baddir
            // and Don't pick a direction that will lead to a wall
-          || ls::getTileAt(pos + (Vector2f(newdir) * 30.0f)) == ls::WALL
+          || ls::getTileAt(pos + (Vector2f(newdir) * 25.0f)) == ls::WALL
         ) {
            // pick new direction
            newdir = directions[rand() % 4];
@@ -55,6 +55,7 @@ void EnemyAIComponent::update(double dt) {
      }
      move(_direction * mva); //No
      break;
+
  }
  ActorMovementComponent::update(dt);
 }
