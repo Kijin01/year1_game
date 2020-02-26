@@ -1,4 +1,8 @@
-//"cmp_sprite.cpp"
+#include "cmp_sprite.h"
+#include "system_renderer.h"
+
+using namespace std;
+using namespace sf;
 
 void ShapeComponent::update(double dt) {
   _shape->setPosition(_parent->getPosition());

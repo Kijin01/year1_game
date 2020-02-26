@@ -7,7 +7,7 @@ void Scene::render() {
 	_ents.render();
 }
 
-void Scene::update(const float dt) {
+void Scene::update(const double dt) {
 	_ents.update(dt);
 }
 

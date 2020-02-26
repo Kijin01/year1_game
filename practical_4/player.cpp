@@ -1,4 +1,4 @@
-#include "player.h"
+/*#include "player.h"
 
 
 using namespace sf;
@@ -30,4 +30,4 @@ void Player::update(float dt) {
 }
 
 Player::Player() {}
-void Player::render() {}
+void Player::render() {}*/

@@ -43,6 +43,12 @@ public:
 }
 };
 
+struct EntityManager {
+    std::vector<std::shared_ptr<Entity>> list;
+    void update(float dt);
+    void render();
+};
+
 class Component { 
  protected:
    Entity *const _parent;

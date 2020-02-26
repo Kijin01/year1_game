@@ -1,4 +1,10 @@
-//scene.h
+#pragma once
+
+#include "ecm.h"
+#include <memory>
+#include "system_renderer.h"
+
+
 class Scene {
 public:
   Scene() = default;

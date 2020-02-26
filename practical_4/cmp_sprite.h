@@ -1,4 +1,9 @@
-//"cmp_sprite.h"
+#pragma once
+
+#include <SFML/Graphics.hpp>
+#include <ecm.h>
+
+
 class ShapeComponent : public Component {
 protected:
   std::shared_ptr<sf::Shape> _shape;

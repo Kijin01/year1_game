@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include "entity.h"
 
 class Ghost : public Entity {
@@ -8,4 +8,4 @@ public:
 	void update(float dt) override;
 	Ghost();
 	void render();
-};
+};*/
