@@ -1,5 +1,13 @@
-//cmp_enemy_ai.cpp
+#include "cmp_enemy_ai.h"
+#include "levelsystem.h"
+
+using namespace sf;
+using namespace std;
+
 static const Vector2i directions[] = {{1, 0}, {0, 1}, {0, -1}, {-1, 0}};
+
+EnemyAIComponent::EnemyAIComponent(Entity* p)
+    : _direction(directions[(rand() % 4)]), _state(ROAMING), ActorMovementComponent(p) {}
 
 void EnemyAIComponent::update(double dt) {
   //amount to move
@@ -15,22 +23,26 @@ void EnemyAIComponent::update(double dt) {
   
  switch (_state) {
    case ROAMING:
-     if (... )// Wall in front or at waypoint
+     if (ls::getTileAt(newpos) == ls::WALL)// Wall in front or at waypoint
      {
-       .. // start rotate
+       //start rotate
+         _state = ROTATING;
      } else {
-      ... //keep moving
+       //keep moving
+         move(_direction * mva);
+
      }
      break;
     
    case ROTATING:
-     while (
-        // Don't reverse
-          ...
-        // and Don't pick a direction that will lead to a wall
-          ...
+       while (
+           //Don't reverse
+           newdir == baddir
+           // and Don't pick a direction that will lead to a wall
+          || ls::getTileAt(pos + (Vector2f(newdir) * 30.0f)) == ls::WALL
         ) {
-          ... // pick new direction
+           // pick new direction
+           newdir = directions[rand() % 4];
         }
      _direction = Vector2f(newdir);
      _state = ROTATED;

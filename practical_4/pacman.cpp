@@ -3,6 +3,7 @@
 #include "levelsystem.h"
 #include "cmp_actor_movement.h"
 #include "cmp_player_movement.h"
+#include "cmp_enemy_ai.h"
 
 #define GHOSTS_COUNT 4
 
@@ -76,10 +77,13 @@ void GameScene::load() {
         s->setShape<sf::CircleShape>(12.f);
         s->getShape().setFillColor(ghost_cols[i % 4]);
         s->getShape().setOrigin(Vector2f(12.f, 12.f));
-        //ghost->addComponent<EnemyAIComponent>();
+        ghost->addComponent<EnemyAIComponent>();
 
         _ents.list.push_back(ghost);
+        ghosts.push_back(ghost);
     }
+
+    respawn();
 }
 
 void GameScene::render() {

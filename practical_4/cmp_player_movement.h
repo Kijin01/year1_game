@@ -8,5 +8,5 @@ public:
 	explicit PlayerMovementComponent(Entity* p);
 	PlayerMovementComponent() = delete;
 	void render() override {}
-	void update(float dt) override;
+	void update(double dt) override;
 };
