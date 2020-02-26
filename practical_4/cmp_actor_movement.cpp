@@ -1,6 +1,6 @@
 //"cmp_actor_movement.cpp"
 #include "cmp_actor_movement.h"
-#include <LevelSystem.h>
+#include <levelsystem.h>
 
 using namespace sf;
 
@@ -16,12 +16,12 @@ bool ActorMovementComponent::validMove(const sf::Vector2f& pos) {
 void ActorMovementComponent::move(const sf::Vector2f& p) {
   auto pp = _parent->getPosition() + p;
   if (validMove(pp)) {
-   ...
+      _parent->setPosition(pp);
   }
 }
 
 void ActorMovementComponent::move(float x, float y) {
   move(Vector2f(x, y));
 }
-float ActorMovementComponent::getSpeed() const { ... }
-void ActorMovementComponent::setSpeed(float speed) { ... }
+float ActorMovementComponent::getSpeed() const { return _speed; }
+void ActorMovementComponent::setSpeed(float speed) { _speed = speed; }
